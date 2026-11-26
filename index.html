@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#000000">
+<title>Umbrae</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#000;--text:#c4c4c4;--dim:#5a5a5a;--line:#262626;--glow:rgba(210,200,185,.16);--serif:"Cormorant Garamond",Georgia,"Times New Roman",serif}
+*{box-sizing:border-box}
+html,body{margin:0;min-height:100%;background:var(--bg)}
+body{color:var(--text);font-family:var(--serif);font-weight:300;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2rem;min-height:100vh;min-height:100dvh;padding:2.5rem 1.5rem;text-align:center;overflow-x:hidden;position:relative}
+#stars{position:fixed;inset:0;width:100%;height:100%;z-index:0}
+body::after{content:"";position:fixed;inset:0;z-index:1;pointer-events:none;background:radial-gradient(ellipse at center,transparent 35%,#000 100%)}
+main{position:relative;z-index:2;display:flex;flex-direction:column;align-items:center;gap:2rem;width:100%}
+.fade{opacity:0;transform:translateY(8px);animation:rise 2.2s ease forwards}
+.d1{animation-delay:.4s}.d2{animation-delay:1.4s}.d3{animation-delay:2.4s}.d4{animation-delay:3.4s}
+@keyframes rise{to{opacity:1;transform:none}}
+.brand{letter-spacing:.7em;font-size:.8rem;color:var(--dim);margin-right:-.7em}
+h1{font-weight:300;font-size:clamp(1.3rem,5vw,1.9rem);letter-spacing:.06em;margin:0}
+
+/* the eclipse */
+.eclipse{position:relative;width:min(70vw,260px);aspect-ratio:1}
+.eclipse .corona{position:absolute;inset:-28%;border-radius:50%;background:radial-gradient(circle,transparent 38%,var(--glow) 46%,transparent 68%);animation:pulse 7s ease-in-out infinite}
+.eclipse svg{position:absolute;inset:0;width:100%;height:100%;transform:rotate(-90deg)}
+.eclipse .track{fill:none;stroke:var(--line);stroke-width:1}
+.eclipse .prog{fill:none;stroke:var(--text);stroke-width:1.5;stroke-linecap:round;stroke-dasharray:565.5;stroke-dashoffset:565.5;transition:stroke-dashoffset 2.4s cubic-bezier(.2,.7,.2,1);filter:drop-shadow(0 0 4px rgba(220,210,190,.5))}
+.eclipse .disc{position:absolute;inset:9%;border-radius:50%;background:#000;box-shadow:0 0 40px 6px rgba(0,0,0,.9),inset 0 0 30px rgba(255,255,255,.02);display:flex;flex-direction:column;align-items:center;justify-content:center}
+.num{font-size:clamp(2.8rem,14vw,4.4rem);line-height:1;letter-spacing:.04em}
+.of{font-size:.8rem;letter-spacing:.35em;color:var(--dim);margin-top:.5rem}
+@keyframes pulse{50%{opacity:.55;transform:scale(1.04)}}
+
+/* form */
+.panel{display:flex;flex-direction:column;align-items:center;gap:1.1rem}
+.panel p{margin:0;font-size:1.15rem;letter-spacing:.05em}
+input{font:inherit;font-size:1.3rem;color:var(--text);background:transparent;border:0;border-bottom:1px solid var(--line);padding:.5rem .2rem;width:min(78vw,280px);text-align:center;border-radius:0;transition:border-color .6s}
+input:focus{outline:0;border-bottom-color:var(--text)}
+::placeholder{color:#333}
+button{font:inherit;font-size:.9rem;letter-spacing:.45em;text-indent:.45em;color:var(--text);background:transparent;border:1px solid var(--line);padding:.8rem 2rem;cursor:pointer;transition:all .6s;border-radius:0}
+button:hover,button:focus-visible{border-color:var(--text);box-shadow:0 0 18px rgba(220,210,190,.18);outline:0}
+button:disabled{opacity:.35;cursor:default}
+.code{font-size:2.4rem;letter-spacing:.2em;text-indent:.2em;padding:.7rem 1.6rem;border:1px solid var(--line);text-shadow:0 0 18px rgba(220,210,190,.45);animation:glow 4s ease-in-out infinite}
+@keyframes glow{50%{border-color:#444}}
+.note{color:var(--dim);font-size:.95rem;max-width:34ch;line-height:1.6;margin:0}
+.hint{color:#050505;font-size:.95rem;margin:1.5rem 0 0}
+.hidden{display:none!important}
+.timer{font-size:clamp(2.2rem,10vw,3.4rem);letter-spacing:.12em;text-indent:.12em;text-shadow:0 0 22px rgba(220,210,190,.5)}
+.lead{font-size:1.3rem!important}
+a.door{font:inherit;font-size:1rem;letter-spacing:.4em;text-indent:.4em;color:#fff;border:1px solid var(--text);padding:.9rem 2rem;text-decoration:none;box-shadow:0 0 24px rgba(220,210,190,.3)}
+.code{font-size:clamp(1.3rem,6vw,2rem)!important}
+.tease{color:var(--dim);font-size:1rem;letter-spacing:.06em;margin:0;max-width:30ch;line-height:1.6}
+.w.mine{animation:mine 2.4s ease-in-out infinite}
+@keyframes mine{50%{text-shadow:0 0 26px rgba(255,240,210,.95)}}
+.msgbox{max-width:min(88vw,520px);display:flex;flex-direction:column;gap:.8rem;align-items:center}
+.cap{font-size:.75rem;letter-spacing:.5em;text-indent:.5em;color:var(--dim)}
+.words{font-size:clamp(.95rem,3.6vw,1.15rem);line-height:1.9;letter-spacing:.03em}
+.w{transition:color 1s}
+.w.lock{color:#262626;letter-spacing:.05em}
+.w.mine{color:#fff;text-shadow:0 0 14px rgba(230,220,200,.7);border-bottom:1px solid var(--dim)}
+@media (prefers-reduced-motion:reduce){.fade{animation:none;opacity:1;transform:none}.corona,.code{animation:none}.prog{transition:none}}
+</style>
+</head>
+<body>
+<canvas id="stars" aria-hidden="true"></canvas>
+<main>
+  <div class="brand fade d1">UMBRAE</div>
+  <h1 class="fade d2">A message is hiding in the dark.<br>It needs <span id="goal">300</span> voices to be read.</h1>
+
+  <div class="eclipse fade d3" role="img" aria-label="Progress toward the voice goal">
+    <div class="corona"></div>
+    <svg viewBox="0 0 200 200"><circle class="track" cx="100" cy="100" r="90"/><circle class="prog" id="ring" cx="100" cy="100" r="90"/></svg>
+    <div class="disc"><div class="num" id="n">–</div><div class="of">VOICES</div></div>
+  </div>
+
+  <p class="tease fade d4" id="tease"></p>
+
+  <div class="panel hidden" id="closed">
+    <p class="lead">Registration is closed.</p>
+    <p class="note" id="tlabel"></p>
+    <div class="timer" id="timer">--:--:--</div>
+    <a class="door hidden" id="door" href="#" rel="noopener noreferrer">ENTER CHAPTER ONE</a>
+    <div class="panel" id="recover">
+      <p class="note">Were you one of the voices? Enter your code.</p>
+      <input id="codein" maxlength="20" autocomplete="off" spellcheck="false" aria-label="Your code">
+      <button id="codego" type="button">OPEN</button>
+    </div>
+  </div>
+
+  <div class="panel fade d4" id="form">
+    <p>Give the dark one word.<br>One word of the message will become yours.</p>
+    <input id="word" maxlength="40" autocomplete="off" spellcheck="false" aria-label="Enter any word">
+    <button id="go">SPEAK</button>
+  </div>
+
+  <div class="panel hidden" id="done">
+    <p id="vn">Your voice is counted.</p>
+    <div class="code" id="code"></div>
+    <button id="share" type="button">SHARE THE DARK</button>
+    <p class="note">Screenshot it. This code is your key to the next chapters. Your word in the message is highlighted.</p>
+  </div>
+
+  <p class="note" id="msg" aria-live="polite"></p>
+
+  <div class="msgbox fade d4" id="msgbox">
+    <div class="cap">THE MESSAGE</div>
+    <div class="words" id="words" aria-live="polite"></div>
+  </div>
+
+  <p class="note" style="font-size:.8rem">Your word is stored. Do not write anything personal.</p>
+  <p class="hint">Light is not enough.</p>
+</main>
+
+<script>
+// ===== CONFIGURE =====
+const SUPABASE_URL = "https://mnedlyfnkyzzqnwhdxnr.supabase.co";
+const SUPABASE_KEY = "sb_publishable_5JAvfP6PiEiaL6STjXO3rA_mUFxnJ24";
+const GOAL = 300; // must equal the number of words in the message table
+// =====================
+const $ = id => document.getElementById(id);
+const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+$("goal").textContent = GOAL;
+const H = {apikey:SUPABASE_KEY, "Content-Type":"application/json"};
+// legacy JWT keys (start with "eyJ") also need the Authorization header; new "sb_publishable_" keys must not have it
+if(SUPABASE_KEY.startsWith("eyJ")) H.Authorization = "Bearer "+SUPABASE_KEY;
+
+function makeCode(){
+  const L="ABCDEFGHJKLMNPQRSTUVWXYZ";
+  return L[Math.floor(Math.random()*L.length)]+Math.floor(Math.random()*10)+"-"+String(Math.floor(Math.random()*1000)).padStart(3,"0");
+}
+function showCode(c,n){ $("form").classList.add("hidden"); $("done").classList.remove("hidden"); $("code").textContent=c;
+  $("vn").textContent = n ? (n<=GOAL ? "You are voice "+n+". Your word is in the message." : "You are voice "+n+". Keep this.") : "Your voice is counted."; }
+let myN=0, myPos=0; try{ myN=Number(localStorage.getItem("umbrae_n"))||0; myPos=Number(localStorage.getItem("umbrae_pos"))||0; }catch(e){}
+async function loadMessage(){
+  try{
+    const r=await fetch(SUPABASE_URL+"/rest/v1/rpc/revealed_message",{method:"POST",headers:H,body:"{}"});
+    const list=await r.json(); if(!Array.isArray(list)) return;
+    const m={}; list.forEach(x=>m[x.pos]=x.word);
+    const box=$("words"); box.textContent="";
+    for(let i=1;i<=GOAL;i++){
+      const w=document.createElement("span"); w.className="w"+(i===myPos?" mine":"");
+      if(m[i]){ w.textContent=m[i]; } else { w.className+=" lock"; w.textContent="\u25AA\u25AA\u25AA"; }
+      box.append(w, document.createTextNode(" "));
+    }
+  }catch(e){}
+}
+
+let shown = 0;
+function setCount(n){
+  $("tease").textContent = n+" of "+GOAL+" words can be read. The rest are waiting for a voice.";
+  $("ring").style.strokeDashoffset = 565.5*(1-Math.min(1,n/GOAL));
+  if(reduce){ $("n").textContent=n; shown=n; return; }
+  const from=shown, t0=performance.now(), dur=1800;
+  (function step(t){
+    const p=Math.min(1,(t-t0)/dur);
+    $("n").textContent=Math.round(from+(n-from)*(1-Math.pow(1-p,3)));
+    if(p<1) requestAnimationFrame(step); else shown=n;
+  })(t0);
+}
+let st=null, offset=0, tried=false, ticker=null;
+const getDevice=()=>{ try{ let d=localStorage.getItem("umbrae_dev"); if(!d){ d=(crypto.randomUUID?crypto.randomUUID():String(Math.random()).slice(2)+String(Date.now())+"xxxxxxxx").replace(/-/g,""); localStorage.setItem("umbrae_dev",d); } return d; }catch(e){ return String(Math.random()).slice(2)+String(Date.now())+"xxxxxxxx"; } };
+const getCode=()=>{ try{ return localStorage.getItem("umbrae_code")||""; }catch(e){ return ""; } };
+const pad=n=>String(n).padStart(2,"0");
+function fmt(ms){ const t=Math.max(0,Math.floor(ms/1000)); return pad(Math.floor(t/3600))+":"+pad(Math.floor(t%3600/60))+":"+pad(t%60); }
+async function tryChapter(code){
+  try{
+    const r=await fetch(SUPABASE_URL+"/rest/v1/rpc/get_chapter",{method:"POST",headers:H,body:JSON.stringify({p_code:code})});
+    const d=await r.json();
+    if(d.ok && /^https?:\/\//.test(d.url||"")){ $("door").href=d.url; $("door").classList.remove("hidden"); $("recover").classList.add("hidden"); $("tlabel").textContent="THE DOOR IS OPEN"; $("msg").textContent=""; }
+    else if(d.reason==="code"){ $("msg").textContent="This code is not known."; }
+    else if(d.reason==="wait"){ $("msg").textContent="The door is not open yet."; }
+  }catch(e){ $("msg").textContent="The dark did not answer. Try again."; }
+}
+function tick(){
+  if(!st||!st.unlock_at) return;
+  const left=new Date(st.unlock_at).getTime()-(Date.now()+offset);
+  if(left>0){ $("timer").textContent=fmt(left); $("tlabel").textContent="THE DOOR OPENS IN"; }
+  else{ $("timer").textContent="00:00:00"; $("tlabel").textContent="THE DOOR IS OPEN";
+    if(!tried){ tried=true; const c=getCode(); if(c) tryChapter(c); } }
+}
+function applyClosed(){
+  $("form").classList.add("hidden"); $("closed").classList.remove("hidden");
+  $("tease").textContent="The message is complete.";
+  document.querySelector("h1").innerHTML="The message is complete.<br>Read it.";
+  if(getCode()) $("recover").classList.add("hidden");
+  tick(); if(!ticker) ticker=setInterval(tick,1000);
+}
+async function refresh(){
+  try{
+    const r = await fetch(SUPABASE_URL+"/rest/v1/rpc/chapter_status",{method:"POST",headers:H,body:"{}"});
+    st = await r.json();
+    offset = new Date(st.now).getTime()-Date.now();
+    setCount(Number(st.n)); loadMessage();
+    if(st.closed) applyClosed();
+  }catch(e){ $("n").textContent="–"; }
+}
+$("codego").onclick=()=>{ const c=$("codein").value.trim(); if(!c){ $("msg").textContent="Enter your code."; return; } tryChapter(c); };
+
+$("go").onclick = async () => {
+  const word = $("word").value.trim();
+  if(!word){ $("msg").textContent="Say something."; return; }
+  $("go").disabled = true; $("msg").textContent="";
+  if(SUPABASE_URL.includes("YOUR-PROJECT")||SUPABASE_KEY.includes("YOUR-ANON")){ $("msg").textContent="Setup missing: add your Supabase URL and key."; $("go").disabled=false; return; }
+  let err="";
+  try{
+    const r = await fetch(SUPABASE_URL+"/rest/v1/rpc/add_voice",{method:"POST",headers:H,body:JSON.stringify({p_word:word,p_device:getDevice()})});
+    if(r.ok){
+      const d = await r.json(); myN = d.n; myPos = d.pos||0;
+      try{ localStorage.setItem("umbrae_code",d.code); localStorage.setItem("umbrae_n",String(d.n)); localStorage.setItem("umbrae_pos",String(d.pos||0)); }catch(e){}
+      showCode(d.code,d.n); refresh();
+      setTimeout(()=>{ const m=document.querySelector(".w.mine"); if(m) m.scrollIntoView({behavior:"smooth",block:"center"}); },3200); return;
+    }
+    err = r.status+" "+(await r.text()).slice(0,140); console.error("Supabase:",err);
+  }catch(e){ err="network: "+e.message; console.error(e); }
+  if(/device_limit/.test(err)){ $("msg").textContent="This device has already given its voice."; return; }
+  if(/ip_limit/.test(err)){ $("msg").textContent="Too many voices have come from this network."; return; }
+  if(/closed/.test(err)){ $("msg").textContent=""; refresh(); return; }
+  $("msg").textContent="The dark did not answer. Try again."+(err?"  ["+err+"]":"");
+  $("go").disabled=false;
+};
+$("share").onclick = async () => {
+  const data={title:"Umbrae",text:"Someone is counting voices. A message is hiding in the dark.",url:location.href};
+  try{ if(navigator.share) await navigator.share(data); else { await navigator.clipboard.writeText(location.href); $("share").textContent="LINK COPIED"; } }catch(e){}
+};
+$("word").addEventListener("keydown",e=>{ if(e.key==="Enter") $("go").click(); });
+
+try{ const sc=localStorage.getItem("umbrae_code"); if(sc) showCode(sc,myN); }catch(e){}
+setTimeout(refresh, reduce?0:3200); setInterval(refresh,30000);
+
+// faint starfield
+(function(){
+  const c=$("stars"), x=c.getContext("2d"); let S=[];
+  function size(){ c.width=innerWidth; c.height=innerHeight;
+    S=Array.from({length:Math.round(innerWidth*innerHeight/9000)},()=>({x:Math.random()*c.width,y:Math.random()*c.height,r:Math.random()*1.1+.2,p:Math.random()*6.28,s:Math.random()*.6+.2})); }
+  function draw(t){ x.clearRect(0,0,c.width,c.height);
+    for(const s of S){ const a=.12+.2*(reduce?.5:(Math.sin(t/1000*s.s+s.p)+1)/2); x.fillStyle="rgba(210,205,195,"+a+")"; x.beginPath(); x.arc(s.x,s.y,s.r,0,6.28); x.fill(); }
+    if(!reduce) requestAnimationFrame(draw); }
+  size(); addEventListener("resize",size); requestAnimationFrame(draw);
+})();
+</script>
+</body>
+</html>
